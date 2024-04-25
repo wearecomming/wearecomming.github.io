@@ -156,7 +156,64 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2023/10/18/hello-world/" itemprop="url">Hello World</a>
+            <a href="/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" itemprop="url">Summary and Techniques of RAG (Retrieval Augmented Generation)</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2024-04-25T07:25:04.480Z" itemprop="datePublished">Apr 25 2024</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 661 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>RAG is a fast text search technique that aims to search for the most relevant paragraphs with keywords in a large amount of text based on the given key words and phrases. Due to its characteristics, RAG can often provide the latest knowledge to large language models.</p>
+<p>Large language models, such as chatGPT, are unable to obtain the latest information and some more confidential information. But if we need the reasoning ability of the big language model to process this confidential information, we need to use RAG to provide this information to the big language model, and then use the big language model to help us analyze and summarize information, achieving the function of improving efficiency.</p>
+<p>Due to token limitations, we are unable to input all our information into the large language model at once. Therefore, every time we ask a question to the big language model, we must find the most relevant information to our question in a massive amount of information files and provide it to the big language model. Then, the big language model can summarize the rules or refine them into a few sentences.</p>
+<p>The process of finding information is what RAG does.</p>
+<p>RAG can be built using the Langchain framework or by oneself.</p>
+<p>The process of RAG is to first divide a large amount of information text into several text blocks for querying, and then convert these text blocks into text vector vectors through natural language encoding models such as Bert (which is similar to facial recognition face vectors). Then, these text blocks and corresponding text vectors are stored in a vector database for fast searching.</p>
+<p>A vector database is a database that can quickly search for similar vectors.</p>
+<p>It is recommended to use the Fairs database for vector databases. Although it is difficult to deploy, GPU acceleration can be used, which is much faster than regular databases. If you want to consider data at the level of millions, you basically use Fairs or milvus. If you are only considering quick construction, you can use chroma, which is simple and easy to get started.</p>
+<p>By the way, the Langchain framework has a component called faiss, so faiss can be easily used within Langchain.</p>
+<p>After being stored in the vector database, preprocessing ends and we move on to the query phase.</p>
+<p>In the query phase, we first use the same natural language encoding model to convert the question we want to ask into a vector, and then we can query the text vector closest to our question vector in the vector database. After finding this text vector, you can find the corresponding text block. This text block is the information text we need to provide to the big language model.</p>
+<p>At this point, RAG is almost over.</p>
+<p>There are several tips for RAG:</p>
+<ul>
+<li><p>RAG not only allows for single search, but also adopts a parent-child document block search mode for accuracy.</p>
+</li>
+<li><p>When analyzing large languages, it is best to do it step by step and break it down into smaller tasks.</p>
+</li>
+<li><p>Due to the fact that the answers of the big language model are based on probability and are very unstable, some answers to the same question may be very outrageous. To avoid generating outrageous answers, it is best to ask the big model multiple times with the same prompt words to get multiple answers, as there are always more correct answers than incorrect ones. Then, using a large model to summarize these answers can effectively avoid incorrect answers. If it’s still wrong, you need to check the prompt words (smile).</p>
+</li>
+<li><p>You can refer to a similar approach to intelligent agents and say “you are now a…, you need to do…” to a large model, which is better than directly commanding the large model. For example, “you are now a database operator, and you need to perform text extraction on the problem”, which is better than directly asking the large model to do text extraction.</p>
+</li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2023/10/18/Building%20Hexo%20Blogs%20in%20Multiple%20Languages/" itemprop="url">Building Hexo Blogs in Multiple Languages</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -170,25 +227,14 @@
         <span class="column is-narrow">
             
             
-            a minute read (About 123 words)
+            a few seconds read (About 47 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <html><head></head><body><h3 id="Installation-of-Hexo"><a href="#Installation-of-Hexo" class="headerlink" title="Installation of Hexo"></a>Installation of Hexo</h3><p>This section refers to <a target="_blank" rel="noopener" href="https://princesaoke.github.io/2023/09/02/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">Article</a></p>
+<h3 id="Building-multiple-language-themes"><a href="#Building-multiple-language-themes" class="headerlink" title="Building multiple language themes"></a>Building multiple language themes</h3><p>This section refers to <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ballwql/p/hexo.html">Article</a></p>
 </body></html>
     
     </div>

@@ -153,13 +153,13 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2023/10/18/hello-world/" itemprop="url">Hello World</a>
+            <a href="/2024/04/25/zh-cn/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" itemprop="url">RAG（增强检索技术）的总结与技巧</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
             
-                <time datetime="2023-10-18T09:45:50.680Z" itemprop="datePublished">10月 18 2023</time>
+                <time datetime="2024-04-25T07:23:24.124Z" itemprop="datePublished">4月 25 2024</time>
             
         </span>
         
@@ -167,25 +167,71 @@
         <span class="column is-narrow">
             
             
-            1 分钟 读完 (约 123 字)
+            7 分钟 读完 (约 1029 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p>RAG是一种快速文本搜索技术，目的是根据给出的关键词句，在大量的文本中搜索出和关键词最有关联的几段。由于其的特性，RAG往往可以给大语言模型提供最新的知识。</p>
+<p>大语言模型，比如chatGPT,无法获取最新的信息，以及一些较为机密的信息。但是如果我们又需要大语言模型的推理能力来处理这些机密信息，我们就需要使用RAG向大语言模型提供这些信息，然后再使用大语言模型帮我们分析和总结信息，达到提高效率的功能。</p>
+<p>由于token的限制，我们无法一下子向大语言模型输入我们所有的信息。因此，每次向大语言模型提问的时候，我们必须在海量的信息文件中找到和我们的问题最相关的信息并提供给大语言模型，然后由大语言模型总结规律或者精炼成几句话。</p>
+<p>这个找到信息的过程就是RAG所做的事情。</p>
+<p>RAG可以用langchain框架，也可以自己构建。</p>
+<p>RAG的流程是先把拥有的大量信息文本分成数个文本块以便查询，然后把这些文本块通过Bert之类的自然语言编码模型转换为文本向量向量（这一点和人脸识别的人脸向量有异曲同工之妙），然后把这些文本块以及对应的文本向量存入向量数据库以便快速搜索。</p>
+<p>向量数据库是一种能够快速搜索相近向量的数据库。</p>
+<p>向量数据库推荐使用Faiss数据库，虽然难以部署，但是可以使用GPU加速，比一般的数据库要快的多。如果要考虑百万级别的数据，基本上用Faiss或者milvus。如果只是考虑快速构建的话可以使用chroma，简单易上手。</p>
+<p>顺带一提，langchain框架有faiss的组件，所以在langchain里面可以很轻松地使用faiss。</p>
+<p>在存入向量数据库之后，预处理就结束了，来到查询环节。</p>
+<p>在查询环节，我们先把我们要问的问题使用同样的自然语言编码模型转换为向量，然后就可以在向量数据库内查询和我们问题向量最接近的文本向量。找到这个文本向量之后，就可以找到对应的文本块。这个文本块，就是我们要提供给大语言模型的信息文本。</p>
+<p>到这里，RAG就差不多结束了。</p>
+<p>有几个RAG的小技巧：</p>
+<ul>
+<li><p>RAG不止可以单一搜索，为了精确度，可以采用父子文档块搜索的模式。</p>
+</li>
+<li><p>在让大语言做分析的时候，最好一步步做，拆解成小任务更好。</p>
+</li>
+<li><p>由于大语言模型的回答是基于概率的，非常不稳定，所以同样的问题有的回答会非常离谱。为了避免生成离谱的答案，最好用同样的提示词多问几遍大模型，得到多个回答，因为正确答案总是比错误答案多。然后再使用大模型把这几个回答总结一下，就可以有效避免错误回答。如果还是错的，就要检查一下提示词了（笑）。</p>
+</li>
+<li><p>可以参考类似智能体的思路，对大模型说“你现在是一个…,你需要做…”比直接命令大模型更好，比如“你现在是数据库操作员，你需要对于问题进行文本提取”，比直接让大模型做文本提取更好。</p>
+</li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    
+</article>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2024/04/25/zh-cn/Building%20Hexo%20Blogs%20in%20Multiple%20Languages/" itemprop="url">多语言Hexo博客搭建</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2024-04-25T06:18:09.093Z" itemprop="datePublished">4月 25 2024</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            几秒 读完 (约 55 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><h3 id="Hexo的安装"><a href="#Hexo的安装" class="headerlink" title="Hexo的安装"></a>Hexo的安装</h3><p>本部分参考<a target="_blank" rel="noopener" href="https://princesaoke.github.io/2023/09/02/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">文章</a></p>
+<h3 id="多语言主题搭建"><a href="#多语言主题搭建" class="headerlink" title="多语言主题搭建"></a>多语言主题搭建</h3><p>本部分参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ballwql/p/hexo.html">文章</a></p>
 </body></html>
     
     </div>

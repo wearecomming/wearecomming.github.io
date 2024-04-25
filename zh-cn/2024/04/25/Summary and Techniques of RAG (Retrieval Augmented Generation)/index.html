@@ -2,13 +2,13 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>归档: 2024 - Hexo</title>
+<title>Summary and Techniques of RAG (Retrieval Augmented Generation) - Hexo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
 
 
-<link href="/zh-cn/archives/2024/index.html" rel="alternate" hreflang="en" />
+<link href="/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" rel="alternate" hreflang="en" />
     
 
 
@@ -18,11 +18,15 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://wearecomming.github.io/zh-cn/zh-cn/archives/2024/index.html">
+    <meta name="description" content="RAG is a fast text search technique that aims to search for the most relevant paragraphs with keywords in a large amount of text based on the given key words and phrases. Due to its characteristics, R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Summary and Techniques of RAG (Retrieval Augmented Generation)">
+<meta property="og:url" content="http://wearecomming.github.io/zh-cn/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="RAG is a fast text search technique that aims to search for the most relevant paragraphs with keywords in a large amount of text based on the given key words and phrases. Due to its characteristics, R">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-25T07:25:04.480Z">
+<meta property="article:modified_time" content="2024-04-25T07:53:37.631Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -130,11 +134,11 @@
         <div class="dropdown-menu has-text-left" role="menu" style="top:100%">
             <div class="dropdown-content">
             
-                <a href="/zh-cn/archives/2024/index.html" class="dropdown-item">
+                <a href="/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" class="dropdown-item">
                     English
                 </a>
             
-                <a href="/zh-cn/zh-cn/archives/2024/index.html" class="dropdown-item">
+                <a href="/zh-cn/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" class="dropdown-item">
                     简体中文
                 </a>
             
@@ -149,28 +153,104 @@
 
     <section class="section">
     <div class="container">
-    
-    
-        <div class="archive content">
-            <h4 class="title is-4" id="2024">2024</h4>
-            <div class="articles">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Summary and Techniques of RAG (Retrieval Augmented Generation)
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2024-04-25T07:23:24.124Z" itemprop="datePublished">
-                        4月 25</time>
-                    <h6 class="title is-6"><a href="/2024/04/25/zh-cn/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/">RAG（增强检索技术）的总结与技巧</a></h6>
-                </div>
+                <time datetime="2024-04-25T07:25:04.480Z" itemprop="datePublished">4月 25 2024</time>
             
-                <div class="article content>">
-                    <time class="is-text-small" datetime="2024-04-25T06:18:09.093Z" itemprop="datePublished">
-                        4月 25</time>
-                    <h6 class="title is-6"><a href="/2024/04/25/zh-cn/Building%20Hexo%20Blogs%20in%20Multiple%20Languages/">多语言Hexo博客搭建</a></h6>
-                </div>
+        </span>
+        
+        
+        <span class="column is-narrow">
             
-            </div>
-        </div>
+            
+            4 分钟 读完 (约 661 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>RAG is a fast text search technique that aims to search for the most relevant paragraphs with keywords in a large amount of text based on the given key words and phrases. Due to its characteristics, RAG can often provide the latest knowledge to large language models.</p>
+<p>Large language models, such as chatGPT, are unable to obtain the latest information and some more confidential information. But if we need the reasoning ability of the big language model to process this confidential information, we need to use RAG to provide this information to the big language model, and then use the big language model to help us analyze and summarize information, achieving the function of improving efficiency.</p>
+<p>Due to token limitations, we are unable to input all our information into the large language model at once. Therefore, every time we ask a question to the big language model, we must find the most relevant information to our question in a massive amount of information files and provide it to the big language model. Then, the big language model can summarize the rules or refine them into a few sentences.</p>
+<p>The process of finding information is what RAG does.</p>
+<p>RAG can be built using the Langchain framework or by oneself.</p>
+<p>The process of RAG is to first divide a large amount of information text into several text blocks for querying, and then convert these text blocks into text vector vectors through natural language encoding models such as Bert (which is similar to facial recognition face vectors). Then, these text blocks and corresponding text vectors are stored in a vector database for fast searching.</p>
+<p>A vector database is a database that can quickly search for similar vectors.</p>
+<p>It is recommended to use the Fairs database for vector databases. Although it is difficult to deploy, GPU acceleration can be used, which is much faster than regular databases. If you want to consider data at the level of millions, you basically use Fairs or milvus. If you are only considering quick construction, you can use chroma, which is simple and easy to get started.</p>
+<p>By the way, the Langchain framework has a component called faiss, so faiss can be easily used within Langchain.</p>
+<p>After being stored in the vector database, preprocessing ends and we move on to the query phase.</p>
+<p>In the query phase, we first use the same natural language encoding model to convert the question we want to ask into a vector, and then we can query the text vector closest to our question vector in the vector database. After finding this text vector, you can find the corresponding text block. This text block is the information text we need to provide to the big language model.</p>
+<p>At this point, RAG is almost over.</p>
+<p>There are several tips for RAG:</p>
+<ul>
+<li><p>RAG not only allows for single search, but also adopts a parent-child document block search mode for accuracy.</p>
+</li>
+<li><p>When analyzing large languages, it is best to do it step by step and break it down into smaller tasks.</p>
+</li>
+<li><p>Due to the fact that the answers of the big language model are based on probability and are very unstable, some answers to the same question may be very outrageous. To avoid generating outrageous answers, it is best to ask the big model multiple times with the same prompt words to get multiple answers, as there are always more correct answers than incorrect ones. Then, using a large model to summarize these answers can effectively avoid incorrect answers. If it’s still wrong, you need to check the prompt words (smile).</p>
+</li>
+<li><p>You can refer to a similar approach to intelligent agents and say “you are now a…, you need to do…” to a large model, which is better than directly commanding the large model. For example, “you are now a database operator, and you need to perform text extraction on the problem”, which is better than directly asking the large model to do text extraction.</p>
+</li>
+</ul>
+</body></html>
+    
+    </div>
     
     
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2023/10/18/Building%20Hexo%20Blogs%20in%20Multiple%20Languages/">Building Hexo Blogs in Multiple Languages</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://wearecomming.github.io/' async='async'></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        appId: 'c7yOuRCgXB18kxcqtqcGXtMM-gzGzoHsz',
+        appKey: '7sIDx4qOx477qwRJUE7lk2qK',
+        notify: false,
+        verify: false,
+        avatar: '',
+        placeholder: 'Say something...',
+        meta: ['nick', 'mail'],
+        visitor: true,
+        lang: ''
+    })
+</script>
+
+
+</div>
+
     </div>
 </section>
     <footer class="footer">
@@ -214,11 +294,11 @@
         <div class="dropdown-menu has-text-left" role="menu" style="top:100%">
             <div class="dropdown-content">
             
-                <a href="/zh-cn/archives/2024/index.html" class="dropdown-item">
+                <a href="/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" class="dropdown-item">
                     English
                 </a>
             
-                <a href="/zh-cn/zh-cn/archives/2024/index.html" class="dropdown-item">
+                <a href="/zh-cn/2024/04/25/Summary%20and%20Techniques%20of%20RAG%20(Retrieval%20Augmented%20Generation)/" class="dropdown-item">
                     简体中文
                 </a>
             
